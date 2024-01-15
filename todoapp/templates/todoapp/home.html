@@ -1,0 +1,60 @@
+<html>
+    <head>
+         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+         <title>Todo App</title>
+    </head>
+    <body class="container mt-4">
+        <h1 class="text-center"> Todo App </h1>
+        <form action="" method="post" class="mt-4">
+            {% csrf_token %}
+            <input type="hidden" name = "action_type" value = "add" />
+            <div class="input-group">
+                <input type="text" class="form-control"  placeholder="Enter your task here.." name="task" required>
+                <div class="input-group-append">
+                    <button type="submit"> Add Task </button>
+                </div>
+            </div>
+        </form>
+
+        <div class="task-container mt-4">
+        {% for todo in todos %}
+             <div class="card mb-3">
+             <div class="card-body">
+                {% if todo.id == task.id %}
+                    <form action = "" method = "post">
+                        {% csrf_token %}
+                        <input type="hidden" name = "action_type" value = "save" />
+                        <input type="hidden" name="id" value= "{{ todo.id }}" />
+                        <textarea name="task" class="form-control"> {{ task.name }} </textarea>
+                    <button type="submit" class="btn btn-success mt-2"> Save </button>
+                </form>
+                <br>
+            {% else %}
+                <div>
+                {{ todo.name }}
+                    <span class="badge badge-secondary ml-2"> Edited: {{ todo.date_added }} </span>
+                </div>
+                <div class="mt-2">
+                <form method="post" action="" style="display: inline-block;">
+                    {% csrf_token %}
+                    <input type="hidden" name = "action_type" value = "delete" />
+                    <input type="hidden" name="id" value= "{{ todo.id }}">
+                    <button type="submit" class="btn btn-danger"> Delete </button>
+                </form>
+
+                <form method="post" action="" style="display: inline-block;">
+                    {% csrf_token %}
+                    <input type="hidden" name = "action_type" value = "edit" />
+                    <input type="hidden" name="id" value= "{{ todo.id }}">
+                    <button type="submit" class="btn btn-info ml-2"> Edit </button>
+                </form>
+<!--                <br>-->
+            </div>
+
+            {% endif %}
+             </div>
+        </div>
+        {% endfor %}
+        </div>
+    </body>
+</html>
