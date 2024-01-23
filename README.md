@@ -1,1 +1,1 @@
-### Basic Todo web-app built using HTML, Bootstrap, and Django.
+### Built a ToDo web-app using HTML, Bootstrap, and Django.
